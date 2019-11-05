@@ -1,9 +1,32 @@
-mysql:
-  image: mysql
-  ports:
-    - "3306:3306"
-  environment:
-    - MYSQL_ROOT_PASSWORD=root
-    - MYSQL_DATABASE=test
-  volumes:
-    - "./conf.d:/etc/mysql/conf.d:ro"
+#mysql:
+#  image: mysql
+#  ports:
+#    - "3306:3306"
+#  environment:
+#    - MYSQL_ROOT_PASSWORD=root
+#    - MYSQL_DATABASE=test
+#  volumes:
+#    - "./conf.d:/etc/mysql/conf.d:ro"
+
+version: '3.3'
+services:
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test'
+      # So you don't have to use root, but you can if you like
+      MYSQL_USER: 'root'
+      # You can use whatever password you like
+      MYSQL_PASSWORD: 'root'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '3306:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+      # Where our data will be persisted
+    volumes:
+      - ./conf.d:/etc/mysql/conf.d:ro
