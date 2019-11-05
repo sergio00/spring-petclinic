@@ -21,8 +21,8 @@ node {
    
    stage('Deploy Spring Boot Application') {
         
-         //Remove maven-build-container if it exisits
-        sh " docker rm -f java-deploy-container"  denisdbell/petclinic-deploy 
+         //Remove maven-build-container if it exisits   denisdbell/petclinic-deploy 
+        sh " docker rm -f java-deploy-container"  
        
         sh "docker run --name java-deploy-container --volumes-from maven-build-container -d -p 8090:8080 denisdbell/petclinic-deploy"
    }
